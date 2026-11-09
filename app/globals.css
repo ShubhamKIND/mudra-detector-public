@@ -1,0 +1,138 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #1c1917;
+  --foreground: #f5f2ed;
+  --card: #292421;
+  --card-foreground: #f5f2ed;
+  --popover: #1c1917;
+  --popover-foreground: #f5f2ed;
+  --primary: #c9a26b;
+  --primary-foreground: #141210;
+  --secondary: #292421;
+  --secondary-foreground: #f5f2ed;
+  --muted: #292421;
+  --muted-foreground: #a8a29e;
+  --accent: #c9a26b;
+  --accent-foreground: #141210;
+  --destructive: #c76b5a;
+  --border: rgb(245 242 237 / 0.1);
+  --input: rgb(245 242 237 / 0.12);
+  --ring: #c9a26b;
+  --deep: #141210;
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-deep: var(--deep);
+
+  --font-sans: var(--font-ui), -apple-system, 'SF Pro Text', system-ui, sans-serif;
+  --font-brand: var(--font-manrope), system-ui, sans-serif;
+  --font-deva: var(--font-devanagari), serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html,
+  body {
+    @apply bg-background text-foreground;
+    height: 100%;
+  }
+  body {
+    font-feature-settings: 'ss01', 'cv11';
+  }
+}
+
+@layer components {
+  .glass {
+    background: linear-gradient(180deg, rgb(41 36 33 / 0.55), rgb(20 18 16 / 0.55));
+    border: 1px solid rgb(245 242 237 / 0.09);
+    box-shadow:
+      inset 0 1px 0 rgb(245 242 237 / 0.06),
+      0 24px 60px -20px rgb(0 0 0 / 0.6);
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  }
+  .glass-amber {
+    background: linear-gradient(180deg, rgb(201 162 107 / 0.22), rgb(201 162 107 / 0.1));
+    border: 1px solid rgb(201 162 107 / 0.45);
+    box-shadow:
+      inset 0 1px 0 rgb(245 242 237 / 0.12),
+      0 10px 30px -10px rgb(201 162 107 / 0.35);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+  }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.04); }
+}
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+@keyframes ring-out {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+@utility animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+@utility animate-scan {
+  animation: scan 2.8s linear infinite;
+}
+@utility animate-shake {
+  animation: shake 0.45s ease-in-out;
+}
+@utility animate-ring-out {
+  animation: ring-out 1.8s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
